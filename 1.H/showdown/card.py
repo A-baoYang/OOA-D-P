@@ -44,3 +44,20 @@ class Hand:
         card = random.choice(self._all_cards)
         self._all_cards.remove(card)
         return card
+    
+
+class HandExchange:
+    def __init__(self, keep_rounds: int) -> None:
+        self.exchange_records = {}
+        self.keep_rounds = keep_rounds
+
+    def exchange(self, source_player, target_player, start_round: int) -> None:
+        print(f"Hand Exchang happened at round {start_round}, from {source_player} to {target_player}.")
+        source_player._hand, target_player._hand = target_player._hand, source_player._hand
+        source_player._is_exchanged_hand = True
+        self.exchange_records.update({source_player.name: {"target_player": target_player, "start_round": start_round, "rest_rounds": self.keep_rounds}})
+
+    def countdown(self) -> None:
+        for record in self.exchange_records.values():
+            if record["rest_rounds"] > 0:
+                record["rest_rounds"] -= 1
