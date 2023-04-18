@@ -1,4 +1,4 @@
-from card import Deck, RANK_LOOKUP, SUIT_LOOKUP
+from card import Deck, RANK_LOOKUP, SUIT_LOOKUP, HandExchange
 from player import Player
 
 
@@ -12,6 +12,7 @@ class Showdown:
         self._round_num = round_num
         self._current_round = 1
         self._current_round_cards_show = {}
+        self._exchanger = HandExchange(keep_rounds=3)
         self._winner_each_round = {}
 
     def prerequisite(self) -> None:
@@ -28,8 +29,16 @@ class Showdown:
         for i, player in self._players.items():
             print(f"Player#{i} - {player.name} has hand cards: {player._hand._all_cards}")
 
+    def exchange_process(self) -> None:
+        for player in self._players.values():
+            if not player._is_exchanged_hand:
+                is_exchange, exg_target = player.decide_exchange(round_num=self._round_num, players=[p for p in self._players.values() if p.name != player.name])
+                if is_exchange:
+                    self._exchanger.exchange(source_player=player, target_player=exg_target, start_round=self._current_round)
+        
+        self._exchanger.countdown()
+
     def showcard_process(self) -> None:
-        print(f"----- Round {self._current_round} -----\n\n")
         print(f" Show cards: \n")
         for i, player in self._players.items():
             card = player.showcard()
@@ -70,6 +79,8 @@ class Showdown:
         
         print("***    Game Start!    ***\n\n")
         while self._current_round <= 13:
+            print(f"----- Round {self._current_round} -----\n\n")
+            self.exchange_process()
             self.showcard_process()
             winner = self.card_comparison()
             self._winner_each_round.update({self._current_round: winner.name})
