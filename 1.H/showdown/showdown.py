@@ -1,10 +1,10 @@
-"""docstring"""
-from card import Deck, RANK_LOOKUP, SUIT_LOOKUP, HandExchange
+"""賽局流程"""
+from card import Deck, HandExchange
 from player import Player
 
 
 class Showdown:
-    """docstring"""
+    """類別：賽局"""
 
     def __init__(self, players: list, round_num: int = 13):
         self.deck = Deck()
@@ -20,7 +20,7 @@ class Showdown:
         self._winner_each_round = {}
 
     def prerequisite(self) -> None:
-        """docstring"""
+        """遊戲前準備"""
         print("Shuffling Deck...\n")
         self.deck.shuffle()
 
@@ -35,7 +35,7 @@ class Showdown:
             print(f"Player#{i} - {player.name} has hand cards: {player.hand.all_cards}")
 
     def exchange_process(self) -> None:
-        """docstring"""
+        """遊戲程序：手牌交換"""
         for player in self.players.values():
             if not player.is_exchanged_hand:
                 [is_exchange, exg_target] = player.decide_exchange(
@@ -52,7 +52,7 @@ class Showdown:
         self._exchanger.countdown()
 
     def showcard_process(self) -> None:
-        """docstring"""
+        """遊戲程序：出牌階段"""
         print(" Show cards: \n")
         for i, player in self.players.items():
             card = player.showcard()
@@ -60,26 +60,21 @@ class Showdown:
             self._current_round_cards_show.update({i: card})
 
     def card_comparison(self) -> Player:
-        """返回出牌中花色、數字綜合最大的玩家"""
-        cards = {
-            i: {"suit": SUIT_LOOKUP[card.suit], "rank": RANK_LOOKUP[card.rank]}
-            for i, card in self._current_round_cards_show.items()
-        }
-        sorted_cards = {
-            k: v
-            for k, v in sorted(
-                cards.items(),
-                key=lambda item: (item[1]["suit"], item[1]["rank"]),
+        """遊戲程序：返回該回合勝利的玩家（出牌花色點數最大）"""
+        sorted_cards = dict(
+            sorted(
+                self._current_round_cards_show.items(),
+                key=lambda item: item[1],
                 reverse=True,
             )
-        }
+        )
         winner = self.players[list(sorted_cards.keys())[0]]
         winner.gain_points(points=1)
         print(f"The winner goes to {winner}!\n")
         return winner
 
     def final_result(self) -> None:
-        """返回所有局數結束後，分數最高的玩家"""
+        """遊戲程序：返回所有局數結束後，分數最高的玩家"""
         winners, max_point = [], 0
         for p in self.players.values():
             if p.point > max_point:
@@ -89,15 +84,6 @@ class Showdown:
                 winners.append(p)
             else:
                 pass
-
-        # sorted_players = {
-        #     i: player
-        #     for i, player in sorted(
-        #         self.players.items(), key=lambda k: k[1].point, reverse=True
-        #     )
-        # }
-
-        # winner = list(sorted_players.values())[0]
 
         print(
             "***** Game Results *****\n"
@@ -111,7 +97,7 @@ class Showdown:
         print("***   Thank you for playing!   ***\n")
 
     def start(self):
-        """docstring"""
+        """流程執行"""
         print(
             "****** New Game Creating ******\n"
             "Players joining..."

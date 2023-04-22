@@ -1,4 +1,4 @@
-"""docstring"""
+"""程式啟動點"""
 from showdown import Showdown
 from player import AIPlayer, HumanPlayer
 

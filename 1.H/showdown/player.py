@@ -1,11 +1,11 @@
-"""docstring"""
+"""定義玩家相關屬性與方法"""
 from abc import ABC, abstractmethod
 from typing import List
 import random
 
 
 class Player(ABC):
-    """docstring"""
+    """類別：玩家"""
 
     def __init__(self) -> None:
 
@@ -17,7 +17,7 @@ class Player(ABC):
 
     @property
     def name(self):
-        """docstring"""
+        """取得玩家名稱"""
         return self._name
 
     @name.setter
@@ -27,7 +27,7 @@ class Player(ABC):
 
     @property
     def hand(self):
-        """docstring"""
+        """取得玩家手牌"""
         return self._hand
 
     @hand.setter
@@ -36,7 +36,7 @@ class Player(ABC):
 
     @property
     def point(self):
-        """docstring"""
+        """取得玩家點數"""
         return self._point
 
     @point.setter
@@ -45,7 +45,7 @@ class Player(ABC):
 
     @property
     def is_exchanged_hand(self):
-        """docstring"""
+        """取得玩家是否已經交換過手牌"""
         return self._is_exchanged_hand
 
     @is_exchanged_hand.setter
@@ -54,18 +54,18 @@ class Player(ABC):
 
     @abstractmethod
     def showcard(self):
-        """docstring"""
+        """出牌"""
 
     @abstractmethod
     def decide_exchange(self, **kwargs):
-        """docstring"""
+        """決定是否交換手牌"""
 
     def add_cards_to_hand(self, cards: List) -> None:
-        """docstring"""
+        """新增卡牌至手牌中"""
         self._hand.add_cards(cards)
 
     def gain_points(self, points: int) -> None:
-        """docstring"""
+        """計入當回合得分"""
         self._point += points
 
     def __repr__(self) -> str:
@@ -73,7 +73,7 @@ class Player(ABC):
 
 
 class HumanPlayer(Player):
-    """docstring"""
+    """繼承類別：真人玩家"""
 
     def __init__(self) -> None:
         super().__init__()
@@ -111,7 +111,7 @@ class HumanPlayer(Player):
 
 
 class AIPlayer(Player):
-    """docstring"""
+    """繼承：電腦虛擬玩家"""
 
     def __init__(self) -> None:
         super().__init__()
