@@ -1,11 +1,14 @@
-from individual import Individual
-from matchmakingSystem import MatchmakingSystem
-from matchmakingStrategy import DistanceBasedStrategy, HabitBasedStrategy
+"""docstring"""
 import ast
 import random
 
+from individual import Individual
+from matchmakingSystem import MatchmakingSystem
+from matchmakingStrategy import DistanceBasedStrategy, HabitBasedStrategy
+
 
 def create_users():
+    """docstring"""
     users = []
     flag = 1
     while flag:
@@ -25,14 +28,16 @@ def create_users():
 
 
 def decide_strategy():
+    """docstring"""
     strategy = input("Which matching strategy do you like to use? {distance, habit}")
-    if strategy == "distance":
-        return DistanceBasedStrategy()
-    elif strategy == "habit":
+    if strategy == "habit":
         return HabitBasedStrategy()
+    else:
+        return DistanceBasedStrategy()
 
 
 def main():
+    """docstring"""
     system = MatchmakingSystem(
         individuals=create_users(), matchmaking_strategy=decide_strategy()
     )

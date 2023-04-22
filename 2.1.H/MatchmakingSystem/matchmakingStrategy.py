@@ -20,21 +20,18 @@ class MatchmakingStrategy(ABC):
         reverse: bool = False,
     ) -> Individual:
         """docstring"""
-        pass
 
 
 class DistanceBasedStrategy(MatchmakingStrategy):
     """docstring"""
-
-    def __init__(self) -> None:
-        super().__init__()
 
     def match(
         self,
         individuals: List[Individual],
         individual: Individual,
         reverse: bool = False,
-    ) -> Individual:
+    ) -> int:
+        """docstring"""
         result = {
             _individual: math.sqrt(
                 sum([(x - y) ** 2 for x, y in zip(_individual.coord, individual.coord)])
@@ -56,15 +53,13 @@ class DistanceBasedStrategy(MatchmakingStrategy):
 class HabitBasedStrategy(MatchmakingStrategy):
     """docstring"""
 
-    def __init__(self) -> None:
-        super().__init__()
-
     def match(
         self,
         individuals: List[Individual],
         individual: Individual,
         reverse: bool = False,
-    ) -> Individual:
+    ) -> int:
+        """docstring"""
         result = {
             _individual: len(set(_individual.habits) & set(individual.habits))
             for _individual in individuals
