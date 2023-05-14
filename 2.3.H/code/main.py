@@ -6,18 +6,18 @@ from world import World
 if __name__ == "__main__":
     world = World()
     world.init(mode="random")
-    print(world.sprites)
+    print(world._sprites_position_dict)
 
-    while len(world.sprites):
+    while len(world._sprites_position_dict):
         c1 = int(input("Input a coord of a sprite (int): "))
         c2 = int(input("Move to another coord (int): "))
         s1, s2 = world.get_sprite(coord=c1), world.get_sprite(coord=c2)
         assert s1.coord == c1
         if s2 is not None:
-            world.collisionHandleChain.herohero.handle(
+            world._collisionHandleChain.herohero.handle(
                 source_sprite=s1, target_sprite=s2, world=world
             )
         else:
             world.move_sprite(source_coord=s1.coord, target_coord=c2)
 
-        print(world.sprites)
+        print(world._sprites_position_dict)

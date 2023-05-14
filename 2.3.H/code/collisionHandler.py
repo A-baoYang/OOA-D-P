@@ -44,17 +44,36 @@ class HeroWaterHandler(CollisionHandler):
     def __init__(self) -> None:
         super().__init__()
 
-    def handle(
-        self, source_sprite: Sprite, target_sprite: Sprite, world: "World"
-    ) -> None:
-        if isinstance(source_sprite, Hero) and isinstance(target_sprite, Water):
-            source_sprite.HP += 10
-            target_coord = target_sprite.coord
-            world.remove_sprite(coord=target_coord)
+    def operation(
+        self, source_sprite: Sprite, target_sprite: Sprite, world: "World", move: bool
+    ):
+        source_sprite.HP += 10
+        target_coord = target_sprite.coord
+        world.remove_sprite(coord=target_coord)
+        if move:
             world.move_sprite(
                 source_coord=source_sprite.coord, target_coord=target_coord
             )
             source_sprite.coord = target_coord
+
+    def handle(
+        self, source_sprite: Sprite, target_sprite: Sprite, world: "World"
+    ) -> None:
+        if isinstance(source_sprite, Hero) and isinstance(target_sprite, Water):
+            self.operation(
+                source_sprite=source_sprite,
+                target_sprite=target_sprite,
+                world=world,
+                move=True,
+            )
+
+        elif isinstance(target_sprite, Hero) and isinstance(source_sprite, Water):
+            self.operation(
+                source_sprite=target_sprite,
+                target_sprite=source_sprite,
+                world=world,
+                move=False,
+            )
         else:
             self.next.handle(
                 source_sprite=source_sprite, target_sprite=target_sprite, world=world
@@ -65,17 +84,35 @@ class HeroFireHandler(CollisionHandler):
     def __init__(self) -> None:
         super().__init__()
 
-    def handle(
-        self, source_sprite: Sprite, target_sprite: Sprite, world: "World"
-    ) -> None:
-        if isinstance(source_sprite, Hero) and isinstance(target_sprite, Fire):
-            source_sprite.HP -= 10
-            target_coord = target_sprite.coord
-            world.remove_sprite(coord=target_coord)
+    def operation(
+        self, source_sprite: Sprite, target_sprite: Sprite, world: "World", move: bool
+    ):
+        source_sprite.HP -= 10
+        target_coord = target_sprite.coord
+        world.remove_sprite(coord=target_coord)
+        if move:
             world.move_sprite(
                 source_coord=source_sprite.coord, target_coord=target_coord
             )
             source_sprite.coord = target_coord
+
+    def handle(
+        self, source_sprite: Sprite, target_sprite: Sprite, world: "World"
+    ) -> None:
+        if isinstance(source_sprite, Hero) and isinstance(target_sprite, Fire):
+            self.operation(
+                source_sprite=source_sprite,
+                target_sprite=target_sprite,
+                world=world,
+                move=True,
+            )
+        elif isinstance(target_sprite, Hero) and isinstance(source_sprite, Fire):
+            self.operation(
+                source_sprite=target_sprite,
+                target_sprite=source_sprite,
+                world=world,
+                move=False,
+            )
         else:
             self.next.handle(
                 source_sprite=source_sprite, target_sprite=target_sprite, world=world

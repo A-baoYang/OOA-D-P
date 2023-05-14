@@ -14,12 +14,6 @@ class Sprite:
     def __repr__(self) -> str:
         return f"{type(self)} (x: {self._coord})"
 
-    def __getattr__(self, __name: str):
-        return self.__dict__[f"__{__name}"]
-
-    def __setattr__(self, __name: str, __value: Any) -> None:
-        self.__dict__[f"__{__name}"] = __value
-
     @property
     def coord(self):
         """取得生物座標"""
@@ -45,7 +39,11 @@ class Hero(Sprite):
 
     @HP.setter
     def HP(self, hp: int):
-        assert isinstance(hp, int) and hp >= 0 and hp <= 30
+        if hp < 0:
+            hp = 0
+        elif hp > 30:
+            hp = 30
+        assert isinstance(hp, int)
         self._HP = hp
 
 
