@@ -1,4 +1,4 @@
-# [2.1.H] Match System
+# [2.1.H] Match System (Strategy Method)
 
 > Author: @A-baoYang (jyabaodsda)
 
@@ -8,7 +8,7 @@
 
 ### Run 
 ```bash
-cd MatchmakingSystem
+cd code
 python main.py
 ```
 

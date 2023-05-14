@@ -1,0 +1,51 @@
+[Showdown]
+回合開始前
+Deck.shuffle()
+for p in players:
+    while Hand.size() < 13:
+        p.add_card_to_hand(Deck.drawCard())
+for round in range(round_num):
+    for p in players:
+        p.decide_exchange()
+        p.showcard()
+        自定義比大小邏輯、從所有玩家出牌中回傳最大者
+        出牌最大的玩家分數 +1
+
+贏家=總分最高的玩家
+
+---
+
+[UNO]
+回合開始前
+Deck.shuffle()
+for p in players:
+    while Hand.size() < 5:
+        p.add_card_to_hand(Deck.drawCard())
+
+while not 任一玩家手牌清空:
+    for p in players:
+        if 符合條件手牌 > 0:
+            p.showcard()
+        else:
+            p.add_card_to_hand(Deck.drawCard())
+
+    (若 Deck 被抽完)
+    if Deck.size() == 0:
+        showed_cads = ShowedCard.clear_past_cards()
+        Deck.add_card(showed_cads)
+
+贏家=優先清空手牌的玩家
+
+---
+
+[CardGame Template]
+回合開始前:
+- 公共牌堆洗牌
+- 玩家輪流抽牌(vars: 張數)
+回合開始(vars: 回合數{1, inf}, 終止條件(optional)): 
+    - 每一回合:
+        - 出牌前(vars: {自由環節})
+        - 出牌(vars: 挑選邏輯, 無牌可出如何處理)
+        - 出牌後(vars: {自由環節})
+回合結束:
+- 結算(vars: 結算邏輯)

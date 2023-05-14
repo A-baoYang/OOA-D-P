@@ -1,4 +1,4 @@
-# [1.H] Showdown
+# [1.H] Showdown: Card Comparision Game
 
 > Author: @A-baoYang (jyabaodsda)
 
@@ -9,7 +9,7 @@
 
 ### Run 
 ```
-$ cd showdown
+$ cd code
 $ python main.py
 ```
 
