@@ -8,14 +8,14 @@ sys.path.append("..")
 from CardGame.player import Player
 
 
-class UNOPlayer(Player):
-    """繼承類別：UNO 玩家"""
+class Big2Player(Player):
+    """繼承類別：大老二玩家"""
 
     def __init__(self) -> None:
         super().__init__()
 
 
-class HumanPlayer(UNOPlayer):
+class HumanPlayer(Big2Player):
     """繼承類別：真人玩家"""
 
     def __init__(self) -> None:
@@ -27,7 +27,7 @@ class HumanPlayer(UNOPlayer):
         self._name = name
         print(self)
 
-    def show_card(self) -> List["ShowdownCard"]:
+    def show_card(self) -> List["Big2Card"]:
         """選擇卡牌打出"""
         card_dict = {i: c for i, c in enumerate(self._hand.cards)}
         card_index = ast.literal_eval(
@@ -39,7 +39,7 @@ class HumanPlayer(UNOPlayer):
         return cards_to_remove
 
 
-class AIPlayer(UNOPlayer):
+class AIPlayer(Big2Player):
     """繼承：電腦虛擬玩家"""
 
     def __init__(self) -> None:
@@ -49,6 +49,6 @@ class AIPlayer(UNOPlayer):
         self._name = f"AI #{random.randint(1, 10 ** 5)}"
         print(self)
 
-    def show_card(self) -> "ShowdownCard":
+    def show_card(self) -> "Big2Card":
         print(f"Player: {self._name}:\n")
         return self._hand.show_random_card()

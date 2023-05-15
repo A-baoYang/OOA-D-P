@@ -4,7 +4,7 @@ import sys
 from player import ShowdownPlayer
 
 sys.path.append("..")
-from CardGame.card import Card, Hand, Deck
+from CardGame.card import Card
 
 RANK = [str(i) for i in list(range(2, 11))] + ["J", "Q", "K", "A"]
 RANK_LOOKUP = {k: i for i, k in enumerate(RANK)}

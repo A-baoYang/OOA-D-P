@@ -1,10 +1,8 @@
 """卡牌類的類別"""
 import sys
 
-from player import UNOPlayer
-
 sys.path.append("..")
-from CardGame.card import Card, Hand, Deck
+from CardGame.card import Card
 
 NUMBER = list(range(10))
 COLOR = ["BLUE", "RED", "YELLOW", "GREEN"]
