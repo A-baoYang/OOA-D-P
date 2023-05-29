@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 from collections import Counter
-from typing import Any
-from card import RANK_LOOKUP
 
 import numpy as np
 import logging
@@ -27,6 +25,9 @@ class CardPattern(ABC):
     @abstractmethod
     def compare(self, card_pattern: "CardPattern") -> bool:
         return True
+
+    def __repr__(self) -> str:
+        return f'{type(self).__name__}({vars(self)["_cards"]})'
 
 
 class Single(CardPattern):
@@ -73,6 +74,8 @@ class Straight(CardPattern):
         super().__init__()
 
     def __call__(self, cards: list) -> None:
+        from card import RANK_LOOKUP
+
         cards = sorted(cards)
         _temp_rank = np.array([RANK_LOOKUP[card.rank] for card in cards])
         if len(cards) == 5 and all((_temp_rank[1:] - _temp_rank[:-1]) == 1):
@@ -94,8 +97,8 @@ class FullHouse(CardPattern):
         super().__init__()
 
     def __call__(self, cards: list) -> None:
-        _temp_rank = [card.rank for card in cards]
-        if len(cards) == 5 and sorted(dict(Counter(_temp_rank)).values()) == [
+        self._temp_rank = [card.rank for card in cards]
+        if len(cards) == 5 and sorted(dict(Counter(self._temp_rank)).values()) == [
             2,
             3,
         ]:
@@ -108,29 +111,10 @@ class FullHouse(CardPattern):
         """設定大小判斷依據"""
         assert isinstance(card_pattern, FullHouse), TypeError("請出相同牌型 FullHouse")
 
-        card_pattern_dict = {
-            k: v
-            for k, v in sorted(
-                Counter(card_pattern.cards).items(),
-                key=lambda item: item[1],
-                reverse=True,
-            )
-        }
-        self_card_pattern_dict = {
-            k: v
-            for k, v in sorted(
-                Counter(self._cards).items(), key=lambda item: item[1], reverse=True
-            )
-        }
-        self_card_biggest_card, card_biggest_card = (
-            list(self_card_pattern_dict.keys())[0],
-            list(card_pattern_dict.keys())[0],
-        )
-
-        return self_card_biggest_card > card_biggest_card
+        return self.cards[-1] > card_pattern.cards[-1]
 
 
-class CardPatternChain:
+class CardPatternHandler:
     def __init__(self) -> None:
         self.single = Single()
         self.pair = Pair()

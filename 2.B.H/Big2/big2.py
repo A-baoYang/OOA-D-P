@@ -3,23 +3,9 @@ import logging
 from typing import Union
 
 from card import Big2Card, Big2Hand
-from card_pattern import Single, Pair, Straight, FullHouse, CardPatternChain
+from player import PlayerChain
+from card_pattern import CardPatternHandler
 from CardGame import CardGame, Card
-from utils import log_setting
-
-
-class PlayerChain:
-    def __init__(self, players: dict) -> None:
-        self._players = players
-        for i, p in self._players.items():
-            if i == len(self._players) - 1:
-                p.next = self._players[0]
-            else:
-                p.next = self._players[i + 1]
-
-    @property
-    def players(self):
-        return self._players
 
 
 class Big2(CardGame):
@@ -44,16 +30,11 @@ class Big2(CardGame):
 
         self._player_chain = PlayerChain(players=self._players)
         self._each_round_cards_show = {}
-        self._card_pattern_chain = CardPatternChain()
-        self._card_pattern_chain.chain()
         self._top_play = None
-        self._top_play_type = None
         self._top_player = None
         self._winner = None
-        log_setting()
 
     def prerequisite(self) -> None:
-
         self._deck.shuffle()
         draw_card_num = (
             self._deck.size() // len(self._players)
@@ -74,45 +55,37 @@ class Big2(CardGame):
     def decide_first_player(self) -> None:
         player = self._player_chain._players[0]
         while not self._top_player:
-            if [
-                card
-                for card in player.hand.cards
-                if card.rank == "3" and card.suit == "C"
-            ]:
+            if player.hand.is_contains_club_3():
                 self._top_player = player
+                logging.info(f"{self._top_player} 擁有梅花 3，首回合從 {self._top_player} 開始出牌")
             player = player.next
 
     def showcard_process(self) -> None:
         """遊戲程序：出牌與比較階段"""
         showed_player_count, pass_count, current_player = 0, 0, self._top_player
-        while showed_player_count < 4 or pass_count < 3:
+        self._top_play = None
+        is_first_round = self._current_round == 1 and showed_player_count == 0
+        while pass_count < 3:
             # 出牌
-            showed_cards = current_player.show_card()
-            if showed_cards is None:
-                pass_count += 1
+            showed_pattern = current_player.show_pattern(
+                assign_pattern=type(self._top_play) if self._top_play else None,
+                benchmark=self._top_play,
+                is_first_round=is_first_round,
+            )
+            if showed_pattern is not None:
+                self._top_play = showed_pattern
+                self._top_player = current_player
+                logging.info(f"頂牌已更新: {self._top_play}")
             else:
-                showed_pattern = self._card_pattern_chain.single(cards=showed_cards)
-                self._each_round_cards_show.update(
-                    {current_player.name: showed_pattern.cards}
-                )
-                if self._top_play is None:
-                    self._top_play = showed_pattern
-                    logging.info(f"頂牌已更新: {self._top_play.cards}")
-                else:
-                    # 比大小
-                    if self._top_play.compare(card_pattern=showed_pattern):
-                        pass
-                    else:
-                        self._top_play = showed_pattern
-                        self._top_play_type = type(self._top_play)
-                        self._top_player = current_player
-                        logging.info(f"頂牌已更新: {self._top_play.cards}")
+                pass_count += 1
+                logging.info(f"{current_player} 這一回合 PASS")
 
             showed_player_count += 1
-            current_player = current_player.next
+            if not current_player.hand.cards:
+                self._winner = current_player
+                break
 
-        if pass_count == 3:
-            self._winner = self._top_player
+            current_player = current_player.next
 
     def round_process(self) -> None:
         """實例化單局程序"""
@@ -122,7 +95,7 @@ class Big2(CardGame):
     def game_process(self) -> None:
         """實例化遊戲程序"""
         logging.info(
-            "***    大老二遊戲開始!    ***\n\n" "核心規則：首位讓其他三位玩家連續 PASS （出不了更大的牌型）的玩家獲勝!\n"
+            "***    大老二遊戲開始!    ***\n\n核心規則：首位讓其他三位玩家連續 PASS（出不了更大的牌型）的玩家獲勝!\n"
         )
         # 決定首位出牌玩家（擁有梅花3的人）
         self.decide_first_player()
@@ -139,7 +112,6 @@ class Big2(CardGame):
         )
 
     def start(self):
-
         self.prerequisite()
         self.game_process()
         self.final_result()

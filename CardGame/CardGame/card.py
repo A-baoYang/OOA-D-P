@@ -1,7 +1,7 @@
 """定義抽象類別：卡牌及其他常用類別"""
 import random
 from abc import ABC
-from typing import List, Union
+from typing import Union
 import logging
 
 
@@ -19,7 +19,7 @@ class Card(ABC):
 class Deck:
     """類別：牌堆"""
 
-    def __init__(self, cards: List[Card]) -> None:
+    def __init__(self, cards: list) -> None:
         self._all_cards = cards
         self._past_cards = []
 
@@ -29,7 +29,7 @@ class Deck:
         return self._all_cards
 
     @cards.setter
-    def cards(self, cards: List):
+    def cards(self, cards: list):
         self._all_cards = cards
 
     def size(self) -> int:
@@ -63,41 +63,47 @@ class Hand:
     @property
     def cards(self):
         """取得 _all_cards 屬性內容"""
+        self._all_cards.sort()
         return self._all_cards
 
     @cards.setter
-    def cards(self, cards: List[Card]):
+    def cards(self, cards: list):
         self._all_cards = cards
 
-    def add_cards(self, cards: List[Card]):
+    def add_cards(self, cards: list):
         """新增一些牌到手牌中"""
         self._all_cards.extend(cards)
+        self._all_cards.sort()
 
     def size(self) -> int:
         """計算張數"""
         return len(self._all_cards)
 
-    def remove_cards(self, card_indices: list) -> List[Card]:
+    def get_cards(self, card_indices: list) -> list:
+        """出示卡牌"""
+        self._all_cards.sort()
+        return [self._all_cards[i] for i in card_indices]
+
+    def remove_cards(
+        self,
+        cards_to_remove: Union[list, None] = None,
+        card_indices: Union[list, None] = None,
+    ) -> list:
         """出掉卡牌"""
-        cards_to_remove = [self._all_cards[i] for i in card_indices]
+        cards_to_remove = (
+            cards_to_remove
+            if cards_to_remove
+            else self.get_cards(card_indices=card_indices)
+        )
+        self._all_cards.sort()
         for card in cards_to_remove:
             self._all_cards.remove(card)
         logging.info(f"Cards: {cards_to_remove} showed.")
         return cards_to_remove
 
-    # def show_card(self) -> List[Card]:
-    #     """選擇卡牌打出"""
-    #     card_indices = ast.literal_eval(
-    #         input(
-    #             f"You have these cards in Hand: {self._all_cards}\nChoose cards to show. Card numbers: "
-    #         )
-    #     )
-    #     cards_to_remove = self.remove_card(card_indices=card_indices)
-    #     return cards_to_remove
-
     def show_random_card(
         self, card_num: int = 1, card_choices: Union[list, None] = None
-    ) -> List[Card]:
+    ) -> list:
         """隨機出牌"""
         if card_choices is not None:
             card_indices = random.choice(card_choices)

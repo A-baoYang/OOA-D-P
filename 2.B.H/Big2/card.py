@@ -1,8 +1,9 @@
 """卡牌類的類別"""
 from collections import Counter
 from itertools import combinations
-
+from typing import Union
 from CardGame import Card, Hand
+
 
 RANK = [str(i) for i in list(range(3, 11))] + ["J", "Q", "K", "A", "2"]
 RANK_LOOKUP = {k: i for i, k in enumerate(RANK)}
@@ -43,6 +44,19 @@ class Big2Card(Card):
 class Big2Hand(Hand):
     def __init__(self) -> None:
         super().__init__()
+
+        from card_pattern import CardPatternHandler
+
+        # 每位玩家有自己的 CardPatternHandler
+        self._card_pattern_handler = CardPatternHandler()
+        self._card_pattern_handler.chain()
+
+    def is_contains_club_3(self, cards: Union[list, None] = None):
+        if cards is None:
+            cards = self.cards
+        if [c for c in cards if c.rank == "3" and c.suit == "C"]:
+            return True
+        return False
 
     def _card_combinations(self, _all_cards, r, rank_collect):
         collect = []

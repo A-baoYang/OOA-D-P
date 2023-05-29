@@ -1,0 +1,279 @@
+[2023-05-29 14:57:58] [root | line:28 | __init__] [INFO] - ****** New Game Creating ******
+Players joining...There are 4 players in this game.
+
+[2023-05-29 14:57:58] [root | line:41 | shuffle] [INFO] - Shuffling Deck...
+[2023-05-29 14:57:58] [root | line:46 | prerequisite] [INFO] - Prerequisite for player#0...
+
+[2023-05-29 14:58:00] [root | line:53 | prerequisite] [INFO] - Drawed Cards: [D[3], S[3], C[4], S[4], H[5], S[6], H[7], H[8], C[9], H[9], D[J], D[Q], C[A]]
+[2023-05-29 14:58:00] [root | line:46 | prerequisite] [INFO] - Prerequisite for player#1...
+
+[2023-05-29 14:58:00] [root | line:53 | prerequisite] [INFO] - Drawed Cards: [C[3], H[3], H[4], C[6], C[8], D[8], H[Q], S[Q], C[K], D[A], H[A], S[A], H[2]]
+[2023-05-29 14:58:00] [root | line:46 | prerequisite] [INFO] - Prerequisite for player#2...
+
+[2023-05-29 14:58:00] [root | line:53 | prerequisite] [INFO] - Drawed Cards: [D[5], D[7], S[7], D[9], C[10], D[10], H[10], S[10], C[J], D[K], S[K], C[2], D[2]]
+[2023-05-29 14:58:00] [root | line:46 | prerequisite] [INFO] - Prerequisite for player#3...
+
+[2023-05-29 14:58:01] [root | line:53 | prerequisite] [INFO] - Drawed Cards: [D[4], C[5], S[5], D[6], H[6], C[7], S[8], S[9], H[J], S[J], C[Q], H[K], S[2]]
+[2023-05-29 14:58:01] [root | line:97 | game_process] [INFO] - ***    大老二遊戲開始!    ***
+
+核心規則：首位讓其他三位玩家連續 PASS（出不了更大的牌型）的玩家獲勝!
+
+[2023-05-29 14:58:01] [root | line:60 | decide_first_player] [INFO] - Player: D 擁有梅花 3，首回合從 Player: D 開始出牌
+[2023-05-29 14:58:01] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 14:58:10] [root | line:54 | show_card] [INFO] - [C[3], H[3], D[A], H[A], S[A]]
+[2023-05-29 14:58:10] [root | line:101 | _show_pattern] [INFO] - FullHouse([C[3], H[3], D[A], H[A], S[A]])
+[2023-05-29 14:58:10] [root | line:101 | remove_cards] [INFO] - Cards: [C[3], H[3], D[A], H[A], S[A]] showed.
+[2023-05-29 14:58:10] [root | line:91 | show_pattern] [INFO] - FullHouse([C[3], H[3], D[A], H[A], S[A]]) Showed
+[2023-05-29 14:58:10] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: FullHouse([C[3], H[3], D[A], H[A], S[A]])
+[2023-05-29 14:58:21] [root | line:54 | show_card] [INFO] - [D[7], S[7], C[10], D[10], H[10]]
+[2023-05-29 14:58:21] [root | line:101 | _show_pattern] [INFO] - FullHouse([D[7], S[7], C[10], D[10], H[10]])
+[2023-05-29 14:58:21] [root | line:83 | show_pattern] [WARNING] - 出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌
+[2023-05-29 14:58:32] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 14:58:32] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 14:58:35] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 14:58:35] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 14:58:38] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 14:58:38] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 14:58:38] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:19:48] [root | line:54 | show_card] [INFO] - [C[8], D[8]]
+[2023-05-29 15:19:48] [root | line:101 | _show_pattern] [INFO] - Pair([C[8], D[8]])
+[2023-05-29 15:19:48] [root | line:101 | remove_cards] [INFO] - Cards: [C[8], D[8]] showed.
+[2023-05-29 15:19:48] [root | line:91 | show_pattern] [INFO] - Pair([C[8], D[8]]) Showed
+[2023-05-29 15:19:48] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[8], D[8]])
+[2023-05-29 15:19:52] [root | line:54 | show_card] [INFO] - [D[7], S[7]]
+[2023-05-29 15:19:52] [root | line:101 | _show_pattern] [INFO] - Pair([D[7], S[7]])
+[2023-05-29 15:19:52] [root | line:68 | compare] [INFO] - D[8] vs S[7]
+[2023-05-29 15:19:52] [root | line:83 | show_pattern] [WARNING] - 出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌
+[2023-05-29 15:20:10] [root | line:54 | show_card] [INFO] - [C[10], D[10]]
+[2023-05-29 15:20:10] [root | line:101 | _show_pattern] [INFO] - Pair([C[10], D[10]])
+[2023-05-29 15:20:10] [root | line:68 | compare] [INFO] - D[8] vs D[10]
+[2023-05-29 15:20:10] [root | line:101 | remove_cards] [INFO] - Cards: [C[10], D[10]] showed.
+[2023-05-29 15:20:10] [root | line:91 | show_pattern] [INFO] - Pair([C[10], D[10]]) Showed
+[2023-05-29 15:20:10] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[10], D[10]])
+[2023-05-29 15:20:15] [root | line:54 | show_card] [INFO] - [H[J], S[J]]
+[2023-05-29 15:20:15] [root | line:101 | _show_pattern] [INFO] - Pair([H[J], S[J]])
+[2023-05-29 15:20:15] [root | line:68 | compare] [INFO] - D[10] vs S[J]
+[2023-05-29 15:20:15] [root | line:101 | remove_cards] [INFO] - Cards: [H[J], S[J]] showed.
+[2023-05-29 15:20:15] [root | line:91 | show_pattern] [INFO] - Pair([H[J], S[J]]) Showed
+[2023-05-29 15:20:15] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([H[J], S[J]])
+[2023-05-29 15:20:21] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:21] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:20:25] [root | line:54 | show_card] [INFO] - [H[Q], S[Q]]
+[2023-05-29 15:20:25] [root | line:101 | _show_pattern] [INFO] - Pair([H[Q], S[Q]])
+[2023-05-29 15:20:25] [root | line:68 | compare] [INFO] - S[J] vs S[Q]
+[2023-05-29 15:20:25] [root | line:101 | remove_cards] [INFO] - Cards: [H[Q], S[Q]] showed.
+[2023-05-29 15:20:25] [root | line:91 | show_pattern] [INFO] - Pair([H[Q], S[Q]]) Showed
+[2023-05-29 15:20:25] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([H[Q], S[Q]])
+[2023-05-29 15:20:30] [root | line:54 | show_card] [INFO] - [D[K], S[K]]
+[2023-05-29 15:20:30] [root | line:101 | _show_pattern] [INFO] - Pair([D[K], S[K]])
+[2023-05-29 15:20:30] [root | line:68 | compare] [INFO] - S[Q] vs S[K]
+[2023-05-29 15:20:30] [root | line:101 | remove_cards] [INFO] - Cards: [D[K], S[K]] showed.
+[2023-05-29 15:20:30] [root | line:91 | show_pattern] [INFO] - Pair([D[K], S[K]]) Showed
+[2023-05-29 15:20:30] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([D[K], S[K]])
+[2023-05-29 15:20:32] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:32] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:20:34] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:34] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:20:34] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:20:36] [root | line:54 | show_card] [INFO] - [C[2], D[2]]
+[2023-05-29 15:20:36] [root | line:101 | _show_pattern] [INFO] - Pair([C[2], D[2]])
+[2023-05-29 15:20:36] [root | line:101 | remove_cards] [INFO] - Cards: [C[2], D[2]] showed.
+[2023-05-29 15:20:36] [root | line:91 | show_pattern] [INFO] - Pair([C[2], D[2]]) Showed
+[2023-05-29 15:20:36] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[2], D[2]])
+[2023-05-29 15:20:38] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:38] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:20:39] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:39] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:20:41] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:41] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:20:41] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:20:46] [root | line:54 | show_card] [INFO] - [D[7], S[7]]
+[2023-05-29 15:20:46] [root | line:101 | _show_pattern] [INFO] - Pair([D[7], S[7]])
+[2023-05-29 15:20:46] [root | line:101 | remove_cards] [INFO] - Cards: [D[7], S[7]] showed.
+[2023-05-29 15:20:46] [root | line:91 | show_pattern] [INFO] - Pair([D[7], S[7]]) Showed
+[2023-05-29 15:20:46] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([D[7], S[7]])
+[2023-05-29 15:20:49] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:49] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:20:54] [root | line:54 | show_card] [INFO] - [C[9], H[9]]
+[2023-05-29 15:20:54] [root | line:101 | _show_pattern] [INFO] - Pair([C[9], H[9]])
+[2023-05-29 15:20:54] [root | line:68 | compare] [INFO] - S[7] vs H[9]
+[2023-05-29 15:20:54] [root | line:101 | remove_cards] [INFO] - Cards: [C[9], H[9]] showed.
+[2023-05-29 15:20:54] [root | line:91 | show_pattern] [INFO] - Pair([C[9], H[9]]) Showed
+[2023-05-29 15:20:54] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[9], H[9]])
+[2023-05-29 15:20:55] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:20:55] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:20:58] [root | line:54 | show_card] [INFO] - [H[10], S[10]]
+[2023-05-29 15:20:58] [root | line:101 | _show_pattern] [INFO] - Pair([H[10], S[10]])
+[2023-05-29 15:20:58] [root | line:68 | compare] [INFO] - H[9] vs S[10]
+[2023-05-29 15:20:58] [root | line:101 | remove_cards] [INFO] - Cards: [H[10], S[10]] showed.
+[2023-05-29 15:20:58] [root | line:91 | show_pattern] [INFO] - Pair([H[10], S[10]]) Showed
+[2023-05-29 15:20:58] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([H[10], S[10]])
+[2023-05-29 15:21:00] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:00] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:21:00] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:21:01] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:01] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:21:02] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:02] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:21:09] [root | line:54 | show_card] [INFO] - [D[3], S[3]]
+[2023-05-29 15:21:09] [root | line:101 | _show_pattern] [INFO] - Pair([D[3], S[3]])
+[2023-05-29 15:21:09] [root | line:101 | remove_cards] [INFO] - Cards: [D[3], S[3]] showed.
+[2023-05-29 15:21:09] [root | line:91 | show_pattern] [INFO] - Pair([D[3], S[3]]) Showed
+[2023-05-29 15:21:09] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([D[3], S[3]])
+[2023-05-29 15:21:10] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:10] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:21:10] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:21:15] [root | line:54 | show_card] [INFO] - [C[4], S[4]]
+[2023-05-29 15:21:15] [root | line:101 | _show_pattern] [INFO] - Pair([C[4], S[4]])
+[2023-05-29 15:21:15] [root | line:101 | remove_cards] [INFO] - Cards: [C[4], S[4]] showed.
+[2023-05-29 15:21:15] [root | line:91 | show_pattern] [INFO] - Pair([C[4], S[4]]) Showed
+[2023-05-29 15:21:15] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[4], S[4]])
+[2023-05-29 15:21:16] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:16] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:21:16] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:16] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:21:21] [root | line:54 | show_card] [INFO] - [C[5], S[5]]
+[2023-05-29 15:21:21] [root | line:101 | _show_pattern] [INFO] - Pair([C[5], S[5]])
+[2023-05-29 15:21:21] [root | line:68 | compare] [INFO] - S[4] vs S[5]
+[2023-05-29 15:21:21] [root | line:101 | remove_cards] [INFO] - Cards: [C[5], S[5]] showed.
+[2023-05-29 15:21:21] [root | line:91 | show_pattern] [INFO] - Pair([C[5], S[5]]) Showed
+[2023-05-29 15:21:21] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([C[5], S[5]])
+[2023-05-29 15:21:24] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:24] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:21:24] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:21:26] [root | line:54 | show_card] [INFO] - [D[6], H[6]]
+[2023-05-29 15:21:26] [root | line:101 | _show_pattern] [INFO] - Pair([D[6], H[6]])
+[2023-05-29 15:21:26] [root | line:101 | remove_cards] [INFO] - Cards: [D[6], H[6]] showed.
+[2023-05-29 15:21:26] [root | line:91 | show_pattern] [INFO] - Pair([D[6], H[6]]) Showed
+[2023-05-29 15:21:26] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Pair([D[6], H[6]])
+[2023-05-29 15:21:29] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:29] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:21:30] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:30] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:21:30] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:30] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:21:30] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:21:32] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:32] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:21:35] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:35] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:21:37] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:21:37] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:21:37] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:21:44] [root | line:54 | show_card] [INFO] - [D[4]]
+[2023-05-29 15:21:44] [root | line:101 | _show_pattern] [INFO] - Single([D[4]])
+[2023-05-29 15:21:44] [root | line:101 | remove_cards] [INFO] - Cards: [D[4]] showed.
+[2023-05-29 15:21:44] [root | line:91 | show_pattern] [INFO] - Single([D[4]]) Showed
+[2023-05-29 15:21:44] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([D[4]])
+[2023-05-29 15:21:46] [root | line:54 | show_card] [INFO] - [H[5]]
+[2023-05-29 15:21:46] [root | line:101 | _show_pattern] [INFO] - Single([H[5]])
+[2023-05-29 15:21:46] [root | line:101 | remove_cards] [INFO] - Cards: [H[5]] showed.
+[2023-05-29 15:21:46] [root | line:91 | show_pattern] [INFO] - Single([H[5]]) Showed
+[2023-05-29 15:21:46] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([H[5]])
+[2023-05-29 15:21:49] [root | line:54 | show_card] [INFO] - [C[6]]
+[2023-05-29 15:21:49] [root | line:101 | _show_pattern] [INFO] - Single([C[6]])
+[2023-05-29 15:21:49] [root | line:101 | remove_cards] [INFO] - Cards: [C[6]] showed.
+[2023-05-29 15:21:49] [root | line:91 | show_pattern] [INFO] - Single([C[6]]) Showed
+[2023-05-29 15:21:49] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[6]])
+[2023-05-29 15:21:51] [root | line:54 | show_card] [INFO] - [D[9]]
+[2023-05-29 15:21:51] [root | line:101 | _show_pattern] [INFO] - Single([D[9]])
+[2023-05-29 15:21:51] [root | line:101 | remove_cards] [INFO] - Cards: [D[9]] showed.
+[2023-05-29 15:21:51] [root | line:91 | show_pattern] [INFO] - Single([D[9]]) Showed
+[2023-05-29 15:21:51] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([D[9]])
+[2023-05-29 15:21:53] [root | line:54 | show_card] [INFO] - [S[9]]
+[2023-05-29 15:21:53] [root | line:101 | _show_pattern] [INFO] - Single([S[9]])
+[2023-05-29 15:21:53] [root | line:101 | remove_cards] [INFO] - Cards: [S[9]] showed.
+[2023-05-29 15:21:53] [root | line:91 | show_pattern] [INFO] - Single([S[9]]) Showed
+[2023-05-29 15:21:53] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([S[9]])
+[2023-05-29 15:21:55] [root | line:54 | show_card] [INFO] - [D[J]]
+[2023-05-29 15:21:55] [root | line:101 | _show_pattern] [INFO] - Single([D[J]])
+[2023-05-29 15:21:55] [root | line:101 | remove_cards] [INFO] - Cards: [D[J]] showed.
+[2023-05-29 15:21:55] [root | line:91 | show_pattern] [INFO] - Single([D[J]]) Showed
+[2023-05-29 15:21:55] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([D[J]])
+[2023-05-29 15:21:58] [root | line:54 | show_card] [INFO] - [C[K]]
+[2023-05-29 15:21:58] [root | line:101 | _show_pattern] [INFO] - Single([C[K]])
+[2023-05-29 15:21:58] [root | line:101 | remove_cards] [INFO] - Cards: [C[K]] showed.
+[2023-05-29 15:21:58] [root | line:91 | show_pattern] [INFO] - Single([C[K]]) Showed
+[2023-05-29 15:21:58] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[K]])
+[2023-05-29 15:22:00] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:00] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:22:02] [root | line:54 | show_card] [INFO] - [H[K]]
+[2023-05-29 15:22:02] [root | line:101 | _show_pattern] [INFO] - Single([H[K]])
+[2023-05-29 15:22:02] [root | line:101 | remove_cards] [INFO] - Cards: [H[K]] showed.
+[2023-05-29 15:22:02] [root | line:91 | show_pattern] [INFO] - Single([H[K]]) Showed
+[2023-05-29 15:22:02] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([H[K]])
+[2023-05-29 15:22:07] [root | line:54 | show_card] [INFO] - [C[A]]
+[2023-05-29 15:22:07] [root | line:101 | _show_pattern] [INFO] - Single([C[A]])
+[2023-05-29 15:22:07] [root | line:101 | remove_cards] [INFO] - Cards: [C[A]] showed.
+[2023-05-29 15:22:07] [root | line:91 | show_pattern] [INFO] - Single([C[A]]) Showed
+[2023-05-29 15:22:07] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[A]])
+[2023-05-29 15:22:10] [root | line:54 | show_card] [INFO] - [H[2]]
+[2023-05-29 15:22:10] [root | line:101 | _show_pattern] [INFO] - Single([H[2]])
+[2023-05-29 15:22:10] [root | line:101 | remove_cards] [INFO] - Cards: [H[2]] showed.
+[2023-05-29 15:22:10] [root | line:91 | show_pattern] [INFO] - Single([H[2]]) Showed
+[2023-05-29 15:22:10] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([H[2]])
+[2023-05-29 15:22:11] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:11] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:22:12] [root | line:54 | show_card] [INFO] - [S[2]]
+[2023-05-29 15:22:12] [root | line:101 | _show_pattern] [INFO] - Single([S[2]])
+[2023-05-29 15:22:12] [root | line:101 | remove_cards] [INFO] - Cards: [S[2]] showed.
+[2023-05-29 15:22:12] [root | line:91 | show_pattern] [INFO] - Single([S[2]]) Showed
+[2023-05-29 15:22:12] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([S[2]])
+[2023-05-29 15:22:13] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:13] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:22:13] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:22:14] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:14] [root | line:81 | showcard_process] [INFO] - Player: E 這一回合 PASS
+[2023-05-29 15:22:15] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:15] [root | line:81 | showcard_process] [INFO] - Player: A 這一回合 PASS
+[2023-05-29 15:22:18] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:18] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:22:18] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:22:21] [root | line:54 | show_card] [INFO] - [C[7]]
+[2023-05-29 15:22:21] [root | line:101 | _show_pattern] [INFO] - Single([C[7]])
+[2023-05-29 15:22:21] [root | line:101 | remove_cards] [INFO] - Cards: [C[7]] showed.
+[2023-05-29 15:22:21] [root | line:91 | show_pattern] [INFO] - Single([C[7]]) Showed
+[2023-05-29 15:22:21] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[7]])
+[2023-05-29 15:22:23] [root | line:54 | show_card] [INFO] - [H[7]]
+[2023-05-29 15:22:23] [root | line:101 | _show_pattern] [INFO] - Single([H[7]])
+[2023-05-29 15:22:23] [root | line:101 | remove_cards] [INFO] - Cards: [H[7]] showed.
+[2023-05-29 15:22:23] [root | line:91 | show_pattern] [INFO] - Single([H[7]]) Showed
+[2023-05-29 15:22:23] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([H[7]])
+[2023-05-29 15:22:25] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:25] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:22:26] [root | line:54 | show_card] [INFO] - [C[J]]
+[2023-05-29 15:22:26] [root | line:101 | _show_pattern] [INFO] - Single([C[J]])
+[2023-05-29 15:22:26] [root | line:101 | remove_cards] [INFO] - Cards: [C[J]] showed.
+[2023-05-29 15:22:26] [root | line:91 | show_pattern] [INFO] - Single([C[J]]) Showed
+[2023-05-29 15:22:26] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[J]])
+[2023-05-29 15:22:27] [root | line:54 | show_card] [INFO] - [C[Q]]
+[2023-05-29 15:22:27] [root | line:101 | _show_pattern] [INFO] - Single([C[Q]])
+[2023-05-29 15:22:27] [root | line:101 | remove_cards] [INFO] - Cards: [C[Q]] showed.
+[2023-05-29 15:22:27] [root | line:91 | show_pattern] [INFO] - Single([C[Q]]) Showed
+[2023-05-29 15:22:27] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([C[Q]])
+[2023-05-29 15:22:28] [root | line:54 | show_card] [INFO] - [D[Q]]
+[2023-05-29 15:22:28] [root | line:101 | _show_pattern] [INFO] - Single([D[Q]])
+[2023-05-29 15:22:28] [root | line:101 | remove_cards] [INFO] - Cards: [D[Q]] showed.
+[2023-05-29 15:22:28] [root | line:91 | show_pattern] [INFO] - Single([D[Q]]) Showed
+[2023-05-29 15:22:28] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([D[Q]])
+[2023-05-29 15:22:29] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:29] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:22:31] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:31] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:22:31] [root | line:92 | round_process] [INFO] - 新的回合開始了。
+[2023-05-29 15:22:33] [root | line:54 | show_card] [INFO] - [S[6]]
+[2023-05-29 15:22:33] [root | line:101 | _show_pattern] [INFO] - Single([S[6]])
+[2023-05-29 15:22:33] [root | line:101 | remove_cards] [INFO] - Cards: [S[6]] showed.
+[2023-05-29 15:22:33] [root | line:91 | show_pattern] [INFO] - Single([S[6]]) Showed
+[2023-05-29 15:22:33] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([S[6]])
+[2023-05-29 15:22:34] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:34] [root | line:81 | showcard_process] [INFO] - Player: D 這一回合 PASS
+[2023-05-29 15:22:36] [root | line:54 | show_card] [INFO] - []
+[2023-05-29 15:22:36] [root | line:81 | showcard_process] [INFO] - Player: F 這一回合 PASS
+[2023-05-29 15:22:37] [root | line:54 | show_card] [INFO] - [S[8]]
+[2023-05-29 15:22:37] [root | line:101 | _show_pattern] [INFO] - Single([S[8]])
+[2023-05-29 15:22:37] [root | line:101 | remove_cards] [INFO] - Cards: [S[8]] showed.
+[2023-05-29 15:22:37] [root | line:91 | show_pattern] [INFO] - Single([S[8]]) Showed
+[2023-05-29 15:22:37] [root | line:78 | showcard_process] [INFO] - 頂牌已更新: Single([S[8]])
+[2023-05-29 15:22:37] [root | line:109 | final_result] [INFO] - ***** Game Results *****
+ Final Winner: Player: E (Wins at round#13)

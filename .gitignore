@@ -2,4 +2,4 @@ __pycache__/
 *.zip
 .DS_Store
 *.lock
-logs-*/
+*.bnk
