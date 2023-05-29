@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from collections import Counter
 
 import numpy as np
-import logging
 
 
 class CardPattern(ABC):
@@ -48,6 +47,9 @@ class Single(CardPattern):
 
         return self._cards[0] > card_pattern.cards[0]
 
+    def detect(self, cards: list, card_pattern: CardPattern) -> list:
+        """從手牌中列出符合 Single 且比 card_pattern 大的出牌組合"""
+
 
 class Pair(CardPattern):
     def __init__(self) -> None:
@@ -65,8 +67,10 @@ class Pair(CardPattern):
 
         assert isinstance(card_pattern, Pair), TypeError("請出相同牌型 Pair")
 
-        logging.info(f"{max(self._cards)} vs {max(card_pattern.cards)}")
         return max(self._cards) > max(card_pattern.cards)
+
+    def detect(self, cards: list, card_pattern: CardPattern) -> list:
+        """從手牌中列出符合 Pair 且比 card_pattern 大的出牌組合"""
 
 
 class Straight(CardPattern):

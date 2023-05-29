@@ -74,8 +74,8 @@ class Big2Hand(Hand):
         return collect
 
     def pattern_detection(self):
-        # self._all_cards 改成 dict 會比較方便
-        _all_cards = {k: v for k, v in enumerate(self._all_cards)}
+        # self._all_cards 改成 dict 會比較方便(可以提供編號出去)
+        _all_cards = {k: v for k, v in enumerate(sorted(self._all_cards))}
         card_in_rank = [card.rank for card in _all_cards.values()]
         card_stats = dict(Counter(card_in_rank))
 

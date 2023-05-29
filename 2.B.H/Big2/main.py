@@ -3,7 +3,7 @@ from itertools import product
 from card import RANK, SUIT, Big2Card
 from player import AIPlayer, HumanPlayer
 from big2 import Big2
-from utils import log_setting
+from CardGame.utils import log_setting
 
 
 if __name__ == "__main__":

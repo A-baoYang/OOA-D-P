@@ -3,6 +3,7 @@ import random
 from typing import Union
 import logging
 from CardGame import Player
+from CardGame.utils import check_input_valid
 
 
 class Big2Player(Player):
@@ -40,17 +41,17 @@ class HumanPlayer(Big2Player):
             [f"{str(c) : <7}" for c in sorted_cards.values()]
         )
         formatted_numbers = "".join([f"{i : <7}" for i in sorted_cards.keys()])
-        card_indices = input(
-            f"輪到 Player {self._name} 了\n{formatted_numbers}\n{formatted_sorted_cards}\n"
-            "請選擇出牌牌型 (以半形逗號分開)\n若無符合資格牌型請按 ENTER 以 PASS 這一回合: \n"
-        ).split(",")
-
-        if not card_indices[0]:
+        card_indices = ""
+        while not check_input_valid(card_indices):
+            card_indices = input(
+                f"輪到 Player {self._name} 了\n{formatted_numbers}\n{formatted_sorted_cards}\n"
+                "請選擇出牌牌型 (以半形逗號分開)\n若無符合資格牌型請輸入 -1 以 PASS 這一回合: \n"
+            )
+        if card_indices == "-1":
             cards_to_remove = []
         else:
-            cards_to_remove = self.hand.get_cards(
-                card_indices=[int(i) for i in card_indices]
-            )
+            card_indices = [int(i) for i in card_indices.split(",")]
+            cards_to_remove = self.hand.get_cards(card_indices=card_indices)
         logging.info(cards_to_remove)
         return cards_to_remove
 
@@ -62,28 +63,30 @@ class HumanPlayer(Big2Player):
     ) -> Union["CardPattern", None]:
         """選擇卡牌，以牌型類別打出"""
         card_pattern = self._show_pattern()
-        if card_pattern == "PASS":
-            return None
         # 第一局開局時
         if is_first_round and not assign_pattern:
-            while not self.hand.is_contains_club_3(cards=card_pattern.cards):
+            while card_pattern == "PASS" or not self.hand.is_contains_club_3(
+                cards=card_pattern.cards
+            ):
                 logging.warn("第一局開局出牌需包含梅花 3，不可跳過，請重新出牌")
                 card_pattern = self._show_pattern()
         # 每回合的第一人出牌時
         elif not is_first_round and not assign_pattern:
-            while card_pattern in [None, "PASS"]:
+            while card_pattern == "PASS":
                 logging.warn("每回合開局出牌無限制，只要符合 4 種格式其中一種，不可跳過，請重新出牌")
                 card_pattern = self._show_pattern()
                 logging.info(card_pattern)
         # 其他所有情境
         elif benchmark and assign_pattern:
+            if card_pattern == "PASS":
+                return card_pattern
             while not isinstance(card_pattern, assign_pattern) or benchmark.compare(
                 card_pattern=card_pattern
             ):
                 logging.warn("出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌")
                 card_pattern = self._show_pattern()
                 if card_pattern == "PASS":
-                    return None
+                    return card_pattern
         else:
             raise Exception("出牌環節遇到未設定過的情境，請檢查程式")
 

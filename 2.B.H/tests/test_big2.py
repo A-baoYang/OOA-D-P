@@ -1,5 +1,7 @@
 from itertools import product
+import sys
 
+sys.path.append("..")
 from card import RANK, SUIT, Big2Card, Big2Hand
 from player import AIPlayer, HumanPlayer, PlayerChain
 from big2 import Big2

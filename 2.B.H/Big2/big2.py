@@ -2,10 +2,9 @@
 import logging
 from typing import Union
 
-from card import Big2Card, Big2Hand
+from card import Big2Hand
 from player import PlayerChain
-from card_pattern import CardPatternHandler
-from CardGame import CardGame, Card
+from CardGame import CardGame
 
 
 class Big2(CardGame):
@@ -72,7 +71,7 @@ class Big2(CardGame):
                 benchmark=self._top_play,
                 is_first_round=is_first_round,
             )
-            if showed_pattern is not None:
+            if showed_pattern != "PASS":
                 self._top_play = showed_pattern
                 self._top_player = current_player
                 logging.info(f"頂牌已更新: {self._top_play}")

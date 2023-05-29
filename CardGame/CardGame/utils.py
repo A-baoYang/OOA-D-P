@@ -27,3 +27,11 @@ def log_setting(
         console_format = logging.Formatter("[%(name)s] [%(levelname)s] - %(message)s")
         console.setFormatter(console_format)
         logging.getLogger().addHandler(console)
+
+
+def check_input_valid(x: str):
+    try:
+        assert int(x.split(",")[0])
+    except Exception:
+        return False
+    return True
