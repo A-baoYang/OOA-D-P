@@ -33,7 +33,7 @@ class Player(ABC):
         pass
 
     @abstractmethod
-    def show_card(self):
+    def show_card(self, **kwargs) -> list:
         """出牌"""
 
     def __repr__(self) -> str:

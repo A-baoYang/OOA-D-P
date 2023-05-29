@@ -1,11 +1,9 @@
 """定義玩家相關屬性與方法"""
-import sys
-from typing import List
-import random
 import ast
+import random
+from typing import List, Union
 
-sys.path.append("..")
-from CardGame.player import Player
+from CardGame import Player
 
 
 class Big2Player(Player):
@@ -13,6 +11,15 @@ class Big2Player(Player):
 
     def __init__(self) -> None:
         super().__init__()
+        self._next = None
+
+    @property
+    def next(self):
+        return self._next
+
+    @next.setter
+    def next(self, player: "Big2Player"):
+        self._next = player
 
 
 class HumanPlayer(Big2Player):
@@ -27,15 +34,15 @@ class HumanPlayer(Big2Player):
         self._name = name
         print(self)
 
-    def show_card(self) -> List["Big2Card"]:
+    def show_card(self) -> list:
         """選擇卡牌打出"""
         card_dict = {i: c for i, c in enumerate(self._hand.cards)}
-        card_index = ast.literal_eval(
-            input(
-                f"Player {self._name}:\nYou have these cards in Hand: {card_dict}\nChoose a cards to show. Card numbers: "
-            )
+        card_indices = input(
+            f"Player {self._name}:\nYou have these cards in Hand: {card_dict}\nChoose cards to show. Split with comma. Card numbers: "
+        ).split(",")
+        cards_to_remove = self._hand.remove_cards(
+            card_indices=[int(i) for i in card_indices]
         )
-        cards_to_remove = self._hand.remove_cards(card_indices=[card_index])
         return cards_to_remove
 
 
@@ -49,6 +56,6 @@ class AIPlayer(Big2Player):
         self._name = f"AI #{random.randint(1, 10 ** 5)}"
         print(self)
 
-    def show_card(self) -> "Big2Card":
+    def show_card(self, card_choices: Union[list, None] = None) -> list:
         print(f"Player: {self._name}:\n")
-        return self._hand.show_random_card()
+        return self._hand.show_random_card(card_choices=card_choices)

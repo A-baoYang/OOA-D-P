@@ -1,11 +1,12 @@
 """賽局流程實例化"""
 import sys
-from player import UNOPlayer
-from card import UNOCard
 from typing import Union
 
+from card import UNOCard
+from player import UNOPlayer
+
 sys.path.append("..")
-from CardGame.cardgame import CardGame
+from CardGame import CardGame
 
 
 class UNO(CardGame):

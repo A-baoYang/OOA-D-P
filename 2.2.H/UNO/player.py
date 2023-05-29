@@ -1,11 +1,11 @@
 """定義玩家相關屬性與方法"""
+import ast
+import random
 import sys
 from typing import List
-import random
-import ast
 
 sys.path.append("..")
-from CardGame.player import Player
+from CardGame import Player
 
 
 class UNOPlayer(Player):

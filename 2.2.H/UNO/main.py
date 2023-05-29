@@ -1,9 +1,9 @@
 from itertools import product
 
-from uno import UNO
-from card import UNOCard, NUMBER, COLOR
+from card import COLOR, NUMBER, UNOCard
 from player import AIPlayer, HumanPlayer
 
+from uno import UNO
 
 if __name__ == "__main__":
     players = [HumanPlayer() for i in range(2)] + [AIPlayer() for i in range(2)]

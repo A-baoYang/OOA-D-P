@@ -1,10 +1,8 @@
 """卡牌類的類別"""
-from abc import ABC, abstractmethod
 from collections import Counter
-import sys
+from itertools import combinations
 
-sys.path.append("..")
-from CardGame.card import Card
+from CardGame import Card, Hand
 
 RANK = [str(i) for i in list(range(3, 11))] + ["J", "Q", "K", "A", "2"]
 RANK_LOOKUP = {k: i for i, k in enumerate(RANK)}
@@ -38,48 +36,78 @@ class Big2Card(Card):
             return True
         return False
 
-
-class CardPattern(ABC):
-    def __init__(self, cards: list) -> None:
-        self.cards = cards
-
-    @abstractmethod
-    def compare(self, card_pattern: "CardPattern") -> bool:
-        return True
+    def __repr__(self) -> str:
+        return f"{self._suit}[{self._rank}]"
 
 
-class Single(CardPattern):
-    def __init__(self, cards: list) -> None:
-        super().__init__(cards)
+class Big2Hand(Hand):
+    def __init__(self) -> None:
+        super().__init__()
 
-    def compare(self, card_pattern: CardPattern) -> bool:
-        """設定大小判斷依據"""
-        return self.cards[0].compare(card_pattern=card_pattern.cards[0])
+    def _card_combinations(self, _all_cards, r, rank_collect):
+        collect = []
+        for rank in rank_collect:
+            c = list(
+                combinations(
+                    iterable=[
+                        {k: card} for k, card in _all_cards.items() if card.rank == rank
+                    ],
+                    r=r,
+                )
+            )
+            c = [list(item) for item in c]
+            collect += c
+        return collect
 
+    def pattern_detection(self):
+        # self._all_cards 改成 dict 會比較方便
+        _all_cards = {k: v for k, v in enumerate(self._all_cards)}
+        card_in_rank = [card.rank for card in _all_cards.values()]
+        card_stats = dict(Counter(card_in_rank))
 
-class Pair(CardPattern):
-    def __init__(self, cards: list) -> None:
-        super().__init__(cards)
+        # pair
+        rank_in_pair = [rank for rank, count in card_stats.items() if count >= 2]
+        self.pairs = self._card_combinations(
+            _all_cards=_all_cards, r=2, rank_collect=rank_in_pair
+        )
 
-    def compare(self, card_pattern: CardPattern) -> bool:
-        """設定大小判斷依據"""
-        return max(self.cards).compare(card_pattern=max(card_pattern.cards))
+        # fullhouse
+        rank_in_triple = [rank for rank, count in card_stats.items() if count >= 3]
+        self.triples = self._card_combinations(
+            _all_cards=_all_cards,
+            r=3,
+            rank_collect=rank_in_triple,
+        )
+        if (not rank_in_triple) or (
+            len(rank_in_pair) <= 1 and len(rank_in_triple) <= 1
+        ):
+            self.fullhouse = []
+        else:
+            for rank in rank_in_triple:
+                _fh = []
+                # 從 pairs 和 triples 組出所有 fullhouse 組合
 
-
-class Straight(CardPattern):
-    def __init__(self, cards: list) -> None:
-        super().__init__(cards)
-
-    def compare(self, card_pattern: CardPattern) -> bool:
-        """設定大小判斷依據"""
-        return max(self.cards).compare(card_pattern=max(card_pattern.cards))
-
-
-class FullHouse(CardPattern):
-    def __init__(self, cards: list) -> None:
-        super().__init__(cards)
-
-    def compare(self, card_pattern: CardPattern) -> bool:
-        """設定大小判斷依據"""
-        dict(Counter(self.cards))
-        return max(self.cards).compare(card_pattern=max(card_pattern.cards))
+        # straight
+        self.straight = []
+        card_id_in_rank = {i: v for i, v in enumerate(card_in_rank)}
+        sorted_card_id_in_rank = {
+            i: v for i, v in sorted(card_id_in_rank.items(), key=lambda item: item[1])
+        }
+        ## 2 pointers
+        i = j = 0
+        prev_rank = list(sorted_card_id_in_rank.values())[0]
+        for card_id, card_rank in sorted_card_id_in_rank.items():
+            if card_id == 0:
+                pass
+            else:
+                if card_rank == prev_rank + 1:
+                    j += 1
+                else:
+                    i = j + 1
+                    j = i
+            if j - i + 1 == 5:
+                self.straight.append(
+                    [sorted_card_id_in_rank[card_id] for card_id in range(i, j + 1)]
+                )
+                i = j + 1
+                j = i

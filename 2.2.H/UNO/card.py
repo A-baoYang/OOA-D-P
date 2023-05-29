@@ -2,7 +2,7 @@
 import sys
 
 sys.path.append("..")
-from CardGame.card import Card
+from CardGame import Card
 
 NUMBER = list(range(10))
 COLOR = ["BLUE", "RED", "YELLOW", "GREEN"]

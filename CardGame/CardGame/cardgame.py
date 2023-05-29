@@ -1,8 +1,9 @@
 """定義抽象類別：賽局、對賽局流程以模板模式抽象"""
+import logging
 from abc import ABC, abstractmethod
 from typing import List, Union
-from card import Deck, Hand
-import logging
+
+from .card import Deck, Hand
 
 
 class CardGame(ABC):
@@ -17,24 +18,23 @@ class CardGame(ABC):
         draw_card_num: Union[int, None],
         **kwargs,
     ) -> None:
+
         self._game_name = game_name
         self._deck = Deck(cards=cards)
         self._players = {i: k for i, k in enumerate(players)}
         self._round_num = round_num
         self._current_round = 1
         self._draw_card_num = draw_card_num
-        self._logger = logging.Logger(name=self._game_name)
+        logging.info(
+            "****** New Game Creating ******\n"
+            "Players joining..."
+            f"There are {len(self._players)} players in this game.\n"
+        )
 
     @abstractmethod
     def prerequisite(self) -> None:
         """遊戲前準備"""
 
-        self._logger.info(
-            "****** New Game Creating ******\n"
-            "Players joining..."
-            f"There are {len(self._players)} players in this game.\n"
-            "Shuffling Deck...\n"
-        )
         self._deck.shuffle()
         draw_card_num = (
             self._deck.size() // len(self._players)
@@ -44,14 +44,14 @@ class CardGame(ABC):
 
         for i, player in self._players.items():
             # name himself
-            self._logger.info(f"Prerequisite for player#{i}...\n")
+            logging.info(f"Prerequisite for player#{i}...\n")
             player.name_himself()
             # draw cards to hand
             player.hand = Hand()
             player.hand.add_cards(
                 [self._deck.draw_card() for i in range(draw_card_num)]
             )
-            self._logger.info(f"Drawed Cards: {player.hand.cards}")
+            logging.info(f"Drawed Cards: {player.hand.cards}")
 
     @abstractmethod
     def round_process(self) -> None:

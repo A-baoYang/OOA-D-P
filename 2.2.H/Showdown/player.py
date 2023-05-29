@@ -1,9 +1,9 @@
 """定義玩家相關屬性與方法"""
-from abc import abstractmethod
-import sys
-from typing import List
-import random
 import ast
+import random
+import sys
+from abc import abstractmethod
+from typing import List
 
 sys.path.append("..")
 from CardGame.player import Player

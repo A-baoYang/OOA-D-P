@@ -1,0 +1,9 @@
+setup.py
+CardGame/__init__.py
+CardGame/card.py
+CardGame/cardgame.py
+CardGame/player.py
+CardGame.egg-info/PKG-INFO
+CardGame.egg-info/SOURCES.txt
+CardGame.egg-info/dependency_links.txt
+CardGame.egg-info/top_level.txt

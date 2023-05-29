@@ -1,11 +1,12 @@
 """賽局流程實例化"""
 import sys
-from card import HandExchange
-from player import ShowdownPlayer
 from typing import Union
 
+from .card import HandExchange
+from .player import ShowdownPlayer
+
 sys.path.append("..")
-from CardGame.cardgame import CardGame
+from CardGame import CardGame
 
 
 class Showdown(CardGame):

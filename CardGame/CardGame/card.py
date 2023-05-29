@@ -1,8 +1,8 @@
 """定義抽象類別：卡牌及其他常用類別"""
-from abc import ABC, abstractmethod
-from typing import List
-import ast
 import random
+from abc import ABC
+from typing import List, Union
+import logging
 
 
 class Card(ABC):
@@ -38,6 +38,7 @@ class Deck:
 
     def shuffle(self) -> None:
         """洗牌"""
+        logging.info("Shuffling Deck...")
         random.shuffle(self._all_cards)
 
     def draw_card(self) -> Card:
@@ -81,7 +82,7 @@ class Hand:
         cards_to_remove = [self._all_cards[i] for i in card_indices]
         for card in cards_to_remove:
             self._all_cards.remove(card)
-        print(f"Cards: {cards_to_remove} showed.")
+        logging.info(f"Cards: {cards_to_remove} showed.")
         return cards_to_remove
 
     # def show_card(self) -> List[Card]:
@@ -94,8 +95,13 @@ class Hand:
     #     cards_to_remove = self.remove_card(card_indices=card_indices)
     #     return cards_to_remove
 
-    def show_random_card(self, card_num: int = 1) -> List[Card]:
+    def show_random_card(
+        self, card_num: int = 1, card_choices: Union[list, None] = None
+    ) -> List[Card]:
         """隨機出牌"""
-        card_indices = random.sample(range(len(self._all_cards)), card_num)
+        if card_choices is not None:
+            card_indices = random.choice(card_choices)
+        else:
+            card_indices = random.sample(range(len(self._all_cards)), card_num)
         cards_to_remove = self.remove_cards(card_indices=card_indices)
         return cards_to_remove

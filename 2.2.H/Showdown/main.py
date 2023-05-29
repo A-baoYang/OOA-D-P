@@ -1,9 +1,9 @@
 """程式啟動點"""
 from itertools import product
-from showdown import Showdown
-from card import ShowdownCard, RANK, SUIT
-from player import AIPlayer, HumanPlayer
 
+from .card import RANK, SUIT, ShowdownCard
+from .player import AIPlayer, HumanPlayer
+from .showdown import Showdown
 
 if __name__ == "__main__":
     players = [HumanPlayer() for i in range(4)]
