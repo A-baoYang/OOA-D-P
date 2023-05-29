@@ -1,8 +1,8 @@
 """卡牌類的類別"""
 from collections import Counter
-from itertools import combinations
 from typing import Union
 from CardGame import Card, Hand
+import random
 
 
 RANK = [str(i) for i in list(range(3, 11))] + ["J", "Q", "K", "A", "2"]
@@ -45,83 +45,68 @@ class Big2Hand(Hand):
     def __init__(self) -> None:
         super().__init__()
 
-        from card_pattern import CardPatternHandler
+        from card_pattern_handler import CardPatternHandler
 
         # 每位玩家有自己的 CardPatternHandler
         self._card_pattern_handler = CardPatternHandler()
         self._card_pattern_handler.chain()
 
-    def is_contains_club_3(self, cards: Union[list, None] = None):
+    def arrange_cards(self) -> None:
+        """整理手牌的動作"""
+        self.cards.sort()
+        self._all_cards_dict = {k: v for k, v in enumerate(sorted(self.cards))}
+        self._card_stats = dict(
+            Counter([card.rank for card in self._all_cards_dict.values()])
+        )
+
+    def is_contains_club_3(self, cards: Union[list, None] = None) -> bool:
+        """手牌/出牌是否包含梅花 3"""
         if cards is None:
             cards = self.cards
         if [c for c in cards if c.rank == "3" and c.suit == "C"]:
             return True
         return False
 
-    def _card_combinations(self, _all_cards, r, rank_collect):
-        collect = []
-        for rank in rank_collect:
-            c = list(
-                combinations(
-                    iterable=[
-                        {k: card} for k, card in _all_cards.items() if card.rank == rank
-                    ],
-                    r=r,
-                )
-            )
-            c = [list(item) for item in c]
-            collect += c
-        return collect
+    def show_random_pattern(
+        self,
+        hand: "Hand",
+        top_play: Union["CardPattern", None] = None,
+        is_first_round: bool = False,
+    ) -> "CardPattern":
+        """執行合法隨機出牌"""
+        from card_pattern import Single, Pair, Straight, FullHouse
 
-    def pattern_detection(self):
-        # self._all_cards 改成 dict 會比較方便(可以提供編號出去)
-        _all_cards = {k: v for k, v in enumerate(sorted(self._all_cards))}
-        card_in_rank = [card.rank for card in _all_cards.values()]
-        card_stats = dict(Counter(card_in_rank))
-
-        # pair
-        rank_in_pair = [rank for rank, count in card_stats.items() if count >= 2]
-        self.pairs = self._card_combinations(
-            _all_cards=_all_cards, r=2, rank_collect=rank_in_pair
-        )
-
-        # fullhouse
-        rank_in_triple = [rank for rank, count in card_stats.items() if count >= 3]
-        self.triples = self._card_combinations(
-            _all_cards=_all_cards,
-            r=3,
-            rank_collect=rank_in_triple,
-        )
-        if (not rank_in_triple) or (
-            len(rank_in_pair) <= 1 and len(rank_in_triple) <= 1
-        ):
-            self.fullhouse = []
+        self.arrange_cards()
+        constraint_func = self.is_contains_club_3 if is_first_round else None
+        if top_play:
+            return top_play.detect(_hand=hand, is_compare=True)
         else:
-            for rank in rank_in_triple:
-                _fh = []
-                # 從 pairs 和 triples 組出所有 fullhouse 組合
-
-        # straight
-        self.straight = []
-        card_id_in_rank = {i: v for i, v in enumerate(card_in_rank)}
-        sorted_card_id_in_rank = {
-            i: v for i, v in sorted(card_id_in_rank.items(), key=lambda item: item[1])
-        }
-        ## 2 pointers
-        i = j = 0
-        prev_rank = list(sorted_card_id_in_rank.values())[0]
-        for card_id, card_rank in sorted_card_id_in_rank.items():
-            if card_id == 0:
-                pass
-            else:
-                if card_rank == prev_rank + 1:
-                    j += 1
-                else:
-                    i = j + 1
-                    j = i
-            if j - i + 1 == 5:
-                self.straight.append(
-                    [sorted_card_id_in_rank[card_id] for card_id in range(i, j + 1)]
-                )
-                i = j + 1
-                j = i
+            _single = self._card_pattern_handler.single(
+                cards=[Big2Card(rank="A", suit="S")]
+            )
+            _pair = self._card_pattern_handler.pair(
+                cards=[Big2Card(rank="A", suit="S"), Big2Card(rank="A", suit="D")]
+            )
+            _straight = self._card_pattern_handler.straight(
+                cards=[
+                    Big2Card(rank="10", suit="S"),
+                    Big2Card(rank="J", suit="H"),
+                    Big2Card(rank="Q", suit="S"),
+                    Big2Card(rank="K", suit="H"),
+                    Big2Card(rank="A", suit="S"),
+                ]
+            )
+            _fullhouse = self._card_pattern_handler.fullhouse(
+                cards=[
+                    Big2Card(rank="K", suit="D"),
+                    Big2Card(rank="K", suit="S"),
+                    Big2Card(rank="A", suit="D"),
+                    Big2Card(rank="A", suit="S"),
+                    Big2Card(rank="A", suit="C"),
+                ]
+            )
+            pattern_type = random.choice([_single, _pair, _straight, _fullhouse])
+            # pattern_type = _single
+            return pattern_type.detect(
+                _hand=hand, is_compare=False, constraint_func=constraint_func
+            )

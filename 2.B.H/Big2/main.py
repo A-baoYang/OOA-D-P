@@ -9,7 +9,8 @@ from CardGame.utils import log_setting
 if __name__ == "__main__":
     log_setting()
 
-    players = [HumanPlayer() for i in range(4)]
+    # players = [HumanPlayer() for i in range(4)]
+    players = [HumanPlayer() for i in range(2)] + [AIPlayer() for i in range(2)]
     big2_game = Big2(
         game_name="Big2",
         cards=[Big2Card(rank=item[0], suit=item[1]) for item in product(RANK, SUIT)],
