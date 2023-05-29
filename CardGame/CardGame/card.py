@@ -34,16 +34,16 @@ class Deck:
 
     def size(self) -> int:
         """計算張數"""
-        return len(self._all_cards)
+        return len(self.cards)
 
     def shuffle(self) -> None:
         """洗牌"""
         logging.info("Shuffling Deck...")
-        random.shuffle(self._all_cards)
+        random.shuffle(self.cards)
 
     def draw_card(self) -> Card:
         """抽牌"""
-        return self._all_cards.pop()
+        return self.cards.pop()
 
     def collect_card(self, card: Card) -> None:
         """紀錄出過的牌"""
@@ -51,7 +51,7 @@ class Deck:
 
     def supply_cards(self) -> None:
         """除了最新一張，將之前出過的牌重洗後加入牌堆"""
-        self._all_cards.extend(random.shuffle(self._past_cards[:-1]))
+        self.cards.extend(random.shuffle(self._past_cards[:-1]))
 
 
 class Hand:
@@ -63,7 +63,6 @@ class Hand:
     @property
     def cards(self):
         """取得 _all_cards 屬性內容"""
-        self._all_cards.sort()
         return self._all_cards
 
     @cards.setter
@@ -72,17 +71,21 @@ class Hand:
 
     def add_cards(self, cards: list):
         """新增一些牌到手牌中"""
-        self._all_cards.extend(cards)
-        self._all_cards.sort()
+        self.cards.extend(cards)
+        self.arrange_cards()
 
     def size(self) -> int:
         """計算張數"""
-        return len(self._all_cards)
+        return len(self.cards)
 
     def get_cards(self, card_indices: list) -> list:
         """出示卡牌"""
-        self._all_cards.sort()
-        return [self._all_cards[i] for i in card_indices]
+        self.arrange_cards()
+        return [self.cards[i] for i in card_indices]
+
+    def arrange_cards(self) -> None:
+        """整理手牌的動作"""
+        self.cards.sort()
 
     def remove_cards(
         self,
@@ -95,9 +98,9 @@ class Hand:
             if cards_to_remove
             else self.get_cards(card_indices=card_indices)
         )
-        self._all_cards.sort()
+        self.arrange_cards()
         for card in cards_to_remove:
-            self._all_cards.remove(card)
+            self.cards.remove(card)
         logging.info(f"Cards: {cards_to_remove} showed.")
         return cards_to_remove
 
@@ -108,6 +111,5 @@ class Hand:
         if card_choices is not None:
             card_indices = random.choice(card_choices)
         else:
-            card_indices = random.sample(range(len(self._all_cards)), card_num)
-        cards_to_remove = self.remove_cards(card_indices=card_indices)
-        return cards_to_remove
+            card_indices = random.sample(range(len(self.cards)), card_num)
+        return card_indices

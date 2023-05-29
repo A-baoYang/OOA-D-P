@@ -31,7 +31,7 @@ def log_setting(
 
 def check_input_valid(x: str):
     try:
-        assert int(x.split(",")[0])
-    except Exception:
+        assert str(abs(int(x.split(",")[0]))).isdigit()
+    except Exception as e:
         return False
     return True
