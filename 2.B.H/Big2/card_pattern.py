@@ -73,7 +73,10 @@ class Single(CardPattern):
             self._cards = cards
             return self
         else:
-            return self.next(cards=cards)
+            if not self.next:
+                raise TypeError("此次出牌未符合任何一種牌型，請重新出牌")
+            else:
+                return self.next(cards=cards)
 
     def compare(self, card_pattern: CardPattern) -> bool:
         """設定大小判斷依據"""
@@ -111,7 +114,10 @@ class Pair(CardPattern):
             self._cards = cards
             return self
         else:
-            return self.next(cards=cards)
+            if not self.next:
+                raise TypeError("此次出牌未符合任何一種牌型，請重新出牌")
+            else:
+                return self.next(cards=cards)
 
     def compare(self, card_pattern: CardPattern) -> bool:
         """設定大小判斷依據"""
@@ -155,11 +161,14 @@ class Straight(CardPattern):
 
         cards = sorted(cards)
         _temp_rank = np.array([RANK_LOOKUP[card.rank] for card in cards])
-        if len(cards) == 5 and all((_temp_rank[1:] - _temp_rank[:-1]) == 1):
+        if len(cards) == 5 and all(np.in1d((_temp_rank[1:] - _temp_rank[:-1]), [1, 9])):
             self._cards = cards
             return self
         else:
-            return self.next(cards=cards)
+            if not self.next:
+                raise TypeError("此次出牌未符合任何一種牌型，請重新出牌")
+            else:
+                return self.next(cards=cards)
 
     def compare(self, card_pattern: CardPattern) -> bool:
         """設定大小判斷依據"""
@@ -188,7 +197,7 @@ class Straight(CardPattern):
 
         for i in range(5, len(unique_sorted_rank) + 1):
             _temp_rank = np.array(unique_sorted_rank[i - 5 : i])
-            if all((_temp_rank[1:] - _temp_rank[:-1]) == 1):
+            if all(np.in1d((_temp_rank[1:] - _temp_rank[:-1]), [1, 9])):
                 _straight_ids.append(_temp_rank.tolist())
 
         for id_set in _straight_ids:
@@ -227,7 +236,10 @@ class FullHouse(CardPattern):
             self._cards = cards
             return self
         else:
-            raise TypeError("此次出牌未符合任何一種牌型，請重新出牌")
+            if not self.next:
+                raise TypeError("此次出牌未符合任何一種牌型，請重新出牌")
+            else:
+                return self.next(cards=cards)
 
     def compare(self, card_pattern: CardPattern) -> bool:
         """設定大小判斷依據"""

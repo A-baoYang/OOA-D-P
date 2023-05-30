@@ -17,6 +17,8 @@ class Big2Card(Card):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
 
+        self._next = None
+
     @property
     def rank(self):
         """取得卡牌的 _rank 屬性內容（點數）"""
@@ -26,6 +28,11 @@ class Big2Card(Card):
     def suit(self):
         """取得卡牌的 _suit 屬性內容（花色）"""
         return self._suit
+
+    @property
+    def next(self):
+        """取得卡牌的 _next 屬性內容（點數）"""
+        return self._next
 
     def __gt__(self, card: "Big2Card"):
         """設定大小判斷依據"""

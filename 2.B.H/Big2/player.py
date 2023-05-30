@@ -4,6 +4,7 @@ from typing import Union
 import logging
 from CardGame import Player
 from CardGame.utils import check_input_valid
+from abc import abstractmethod
 
 
 class Big2Player(Player):
@@ -20,6 +21,55 @@ class Big2Player(Player):
     @next.setter
     def next(self, player: "Big2Player"):
         self._next = player
+
+    @abstractmethod
+    def _show_pattern(self, **kwargs):
+        pass
+
+    def show_pattern(
+        self,
+        assign_pattern: Union["CardPattern", None] = None,
+        benchmark: Union["CardPattern", None] = None,
+        is_first_round: bool = False,
+    ) -> list:
+        card_pattern = self._show_pattern(
+            benchmark=benchmark, is_first_round=is_first_round
+        )
+        # 第一局開局時
+        if is_first_round and not assign_pattern:
+            while card_pattern == "PASS" or not self.hand.is_contains_club_3(
+                cards=card_pattern.cards
+            ):
+                logging.warn("第一局開局出牌需包含梅花 3，不可跳過，請重新出牌")
+                card_pattern = self._show_pattern(
+                    benchmark=benchmark, is_first_round=is_first_round
+                )
+        # 每回合的第一人出牌時
+        elif not is_first_round and not assign_pattern:
+            while card_pattern == "PASS":
+                logging.warn("每回合開局出牌無限制，只要符合 4 種格式其中一種，不可跳過，請重新出牌")
+                card_pattern = self._show_pattern(
+                    benchmark=benchmark, is_first_round=is_first_round
+                )
+        # 其他所有情境
+        elif benchmark and assign_pattern:
+            if card_pattern == "PASS":
+                return card_pattern
+            while not isinstance(card_pattern, assign_pattern) or benchmark.compare(
+                card_pattern=card_pattern
+            ):
+                logging.warn("出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌")
+                card_pattern = self._show_pattern(
+                    benchmark=benchmark, is_first_round=is_first_round
+                )
+                if card_pattern == "PASS":
+                    return card_pattern
+        else:
+            raise Exception("出牌環節遇到未設定過的情境，請檢查程式")
+
+        self.hand.remove_cards(cards_to_remove=card_pattern.cards)
+        logging.info(f"{card_pattern} Showed")
+        return card_pattern
 
 
 class HumanPlayer(Big2Player):
@@ -52,56 +102,16 @@ class HumanPlayer(Big2Player):
         else:
             card_indices = [int(i) for i in card_indices.split(",")]
             cards_to_show = self.hand.get_cards(card_indices=card_indices)
-        logging.info(cards_to_show)
         return cards_to_show
 
-    def show_pattern(
-        self,
-        assign_pattern: Union["CardPattern", None] = None,
-        benchmark: Union["CardPattern", None] = None,
-        is_first_round: bool = False,
-    ) -> Union["CardPattern", None]:
-        """選擇卡牌，以牌型類別打出"""
-        card_pattern = self._show_pattern()
-        # 第一局開局時
-        if is_first_round and not assign_pattern:
-            while card_pattern == "PASS" or not self.hand.is_contains_club_3(
-                cards=card_pattern.cards
-            ):
-                logging.warn("第一局開局出牌需包含梅花 3，不可跳過，請重新出牌")
-                card_pattern = self._show_pattern()
-        # 每回合的第一人出牌時
-        elif not is_first_round and not assign_pattern:
-            while card_pattern == "PASS":
-                logging.warn("每回合開局出牌無限制，只要符合 4 種格式其中一種，不可跳過，請重新出牌")
-                card_pattern = self._show_pattern()
-                logging.info(card_pattern)
-        # 其他所有情境
-        elif benchmark and assign_pattern:
-            if card_pattern == "PASS":
-                return card_pattern
-            while not isinstance(card_pattern, assign_pattern) or benchmark.compare(
-                card_pattern=card_pattern
-            ):
-                logging.warn("出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌")
-                card_pattern = self._show_pattern()
-                if card_pattern == "PASS":
-                    return card_pattern
-        else:
-            raise Exception("出牌環節遇到未設定過的情境，請檢查程式")
+    def _show_pattern(self, **kwargs) -> Union["CardPattern", str]:
 
-        self.hand.remove_cards(cards_to_remove=card_pattern.cards)
-        logging.info(f"{card_pattern} Showed")
-        return card_pattern
-
-    def _show_pattern(self) -> Union["CardPattern", str]:
         is_type_passed = False
         while not is_type_passed:
             cards = self.show_card()
             if cards:
                 try:
                     card_pattern = self.hand._card_pattern_handler.single(cards=cards)
-                    logging.info(card_pattern)
                     is_type_passed = True
                 except TypeError as e:
                     logging.error(e)
@@ -121,52 +131,13 @@ class AIPlayer(Big2Player):
         print(self)
 
     def show_card(self, card_choices: list) -> list:
+        print(f"輪到 Player {self._name} 了\n")
         if card_choices:
             card_indices = self.hand.show_random_card(card_choices=card_choices)
             cards_to_show = self.hand.get_cards(card_indices=card_indices)
-            logging.info(cards_to_show)
         else:
             cards_to_show = []
         return cards_to_show
-
-    def show_pattern(
-        self,
-        assign_pattern: Union["CardPattern", None] = None,
-        benchmark: Union["CardPattern", None] = None,
-        is_first_round: bool = False,
-    ) -> list:
-        print(f"輪到 Player {self._name} 了\n")
-        card_pattern = self._show_pattern(benchmark=benchmark, is_first_round=is_first_round)
-        # 第一局開局時
-        if is_first_round and not assign_pattern:
-            while card_pattern == "PASS" or not self.hand.is_contains_club_3(
-                cards=card_pattern.cards
-            ):
-                logging.warn("第一局開局出牌需包含梅花 3，不可跳過，請重新出牌")
-                card_pattern = self._show_pattern(benchmark=benchmark, is_first_round=is_first_round)
-        # 每回合的第一人出牌時
-        elif not is_first_round and not assign_pattern:
-            while card_pattern == "PASS":
-                logging.warn("每回合開局出牌無限制，只要符合 4 種格式其中一種，不可跳過，請重新出牌")
-                card_pattern = self._show_pattern(benchmark=benchmark, is_first_round=is_first_round)
-                logging.info(card_pattern)
-        # 其他所有情境
-        elif benchmark and assign_pattern:
-            if card_pattern == "PASS":
-                return card_pattern
-            while not isinstance(card_pattern, assign_pattern) or benchmark.compare(
-                card_pattern=card_pattern
-            ):
-                logging.warn("出牌需符合目前頂牌格式且大於目前頂牌，請重新出牌")
-                card_pattern = self._show_pattern(benchmark=benchmark, is_first_round=is_first_round)
-                if card_pattern == "PASS":
-                    return card_pattern
-        else:
-            raise Exception("出牌環節遇到未設定過的情境，請檢查程式")
-
-        self.hand.remove_cards(cards_to_remove=card_pattern.cards)
-        logging.info(f"{card_pattern} Showed")
-        return card_pattern
 
     def _show_pattern(
         self,
@@ -183,7 +154,6 @@ class AIPlayer(Big2Player):
             if cards:
                 try:
                     card_pattern = self.hand._card_pattern_handler.single(cards=cards)
-                    logging.info(card_pattern)
                     is_type_passed = True
                 except TypeError as e:
                     logging.error(e)

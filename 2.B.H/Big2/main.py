@@ -11,6 +11,7 @@ if __name__ == "__main__":
 
     # players = [HumanPlayer() for i in range(4)]
     players = [HumanPlayer() for i in range(2)] + [AIPlayer() for i in range(2)]
+    # players = [AIPlayer() for i in range(4)]
     big2_game = Big2(
         game_name="Big2",
         cards=[Big2Card(rank=item[0], suit=item[1]) for item in product(RANK, SUIT)],
