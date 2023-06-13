@@ -9,6 +9,7 @@
 - [x] CardGame module
 - [x] 2.3.H
 - [x] 2.B.H
+- [x] 3.1.H
 
 ### 1.H
 
@@ -16,13 +17,21 @@
 
 ### 2.3.H
 
-- Reference: 
+- Reference: Chain of Responsibility
 
 ### 2.B.H
 
 - [ ] Using linked list on Straight (print Straight with the order not with card rank)
 - [ ] Higher test cases coverage
 
+### 3.1.H
+
+- [ ] OOA
+- [ ] OOD
+- [x] code
+- [x] OCP
+
 ### Acknowledgement
 
 水球軟體學院 軟體設計模式之旅： https://world.waterballsa.tw/
+
