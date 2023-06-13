@@ -8,7 +8,7 @@
 
 ### Run 
 ```bash
-cd MatchmakingSystem
+cd code
 python main.py
 ```
 
