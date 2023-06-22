@@ -2,7 +2,7 @@ from card_pattern import Single, Pair, Straight, FullHouse, CardPattern
 from typing import Callable
 
 
-class CardPatternHandler:
+class CardPatternChain:
     def __init__(self) -> None:
         self.single = Single()
         self.pair = Pair()

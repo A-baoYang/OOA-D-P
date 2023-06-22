@@ -52,10 +52,10 @@ class Big2Hand(Hand):
     def __init__(self) -> None:
         super().__init__()
 
-        from card_pattern_handler import CardPatternHandler
+        from card_pattern_chain import CardPatternChain
 
-        # 每位玩家有自己的 CardPatternHandler
-        self._card_pattern_handler = CardPatternHandler()
+        # 每位玩家有自己的 CardPatternChain
+        self._card_pattern_handler = CardPatternChain()
         self._card_pattern_handler.chain()
 
     def arrange_cards(self) -> None:

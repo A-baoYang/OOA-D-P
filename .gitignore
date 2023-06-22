@@ -1,5 +1,6 @@
 __pycache__/
 *.zip
+*.xml
 .DS_Store
 *.lock
 *.bnk
