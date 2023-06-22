@@ -71,7 +71,7 @@ class ChannelSubscriber(ABC):
         logging.info(f'{self.name} 對影片 "{video.title}" 留言：「{message}」')
 
     @abstractmethod
-    def update(self, state: dict) -> dict:
+    def behave(self, state: dict) -> dict:
         return state
 
 
@@ -79,7 +79,7 @@ class Waterball(ChannelSubscriber):
     def __init__(self, name: str) -> None:
         super().__init__(name)
 
-    def update(self, state: dict) -> dict:
+    def behave(self, state: dict) -> dict:
         if "video" not in state:
             return state
 
@@ -93,7 +93,7 @@ class Fireball(ChannelSubscriber):
     def __init__(self, name: str) -> None:
         super().__init__(name)
 
-    def update(self, state: dict) -> dict:
+    def behave(self, state: dict) -> dict:
         if "video" not in state:
             return state
 

@@ -56,4 +56,4 @@ class Channel:
     def notify(self, state: dict) -> None:
         subscribers_to_notify = self.subscriber_list.copy()
         for subscriber in subscribers_to_notify:
-            subscriber.update(state)
+            subscriber.behave(state)
