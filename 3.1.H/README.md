@@ -4,11 +4,11 @@
 
 ### Object Oriented Analysis
 
-![](336-3.1.H-OOA.png)
+![](3.1.H-OOA.png)
 
 ### Object Oriented Design
 
-![](336-3.1.H-OOD.png)
+![](3.1.H-OOD.png)
 
 ### Run 
 ```bash
