@@ -5,8 +5,12 @@ class Telecom:
     def __init__(self) -> None:
         pass
 
-    def connect(self) -> None:
-        logging.info("The telecom has been turned on.")
+    def connect(self) -> str:
+        _status_msg = "The telecom has been turned on."
+        logging.info(_status_msg)
+        return _status_msg
 
-    def disconnect(self) -> None:
-        logging.info("The telecom has been turned off.")
+    def disconnect(self) -> str:
+        _status_msg = "The telecom has been turned off."
+        logging.info(_status_msg)
+        return _status_msg

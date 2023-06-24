@@ -6,13 +6,19 @@ class TankMoveForward(Command):
     def __init__(self, tool: Any) -> None:
         super().__init__(tool)
 
-    def execute(self) -> None:
-        self._tool.move_forward()
+    def execute(self) -> str:
+        return self._tool.move_forward()
+
+    def undo(self) -> str:
+        return self._tool.move_backward()
 
 
 class TankMoveBackward(Command):
     def __init__(self, tool: Any) -> None:
         super().__init__(tool)
 
-    def execute(self) -> None:
-        self._tool.move_backward()
+    def execute(self) -> str:
+        return self._tool.move_backward()
+
+    def undo(self) -> str:
+        return self._tool.move_forward()

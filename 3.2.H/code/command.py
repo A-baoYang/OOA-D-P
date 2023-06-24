@@ -14,6 +14,13 @@ class Command(ABC):
     def tool(self, tool: Any) -> None:
         self._tool = tool
 
+    def __repr__(self) -> str:
+        return self.__class__.__name__
+    
     @abstractmethod
     def execute(self):
+        pass
+    
+    @abstractmethod
+    def undo(self):
         pass
