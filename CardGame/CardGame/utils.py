@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 import json
 import pandas as pd
+import yaml
 
 
 def log_setting(
@@ -56,8 +57,14 @@ def read_data(path: str) -> Any:
         data = pd.read_json(path, lines=True, orient="records", compression="gzip")
     elif path.endswith(".pickle"):
         data = pd.read_pickle(path)
-    elif path.endswith("parquet"):
+    elif path.endswith(".parquet"):
         data = pd.read_parquet(path)
+    elif path.endswith(".yaml"):
+        with open(path, "r") as stream:
+            try:
+                data = yaml.safe_load(stream)
+            except yaml.YAMLError as e:
+                logging.error(e)
     else:
         data = []
     return data

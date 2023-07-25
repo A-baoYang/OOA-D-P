@@ -1,0 +1,11 @@
+map_object:
+  obstacle: []
+  treasure:
+    Super star: []
+    Poison: []
+    King's Rock: []
+    Accelerating Potion: []
+    Healing Potion: []
+    Dokodemo Door: []
+    Devil Fruit: []
+  monster: []
